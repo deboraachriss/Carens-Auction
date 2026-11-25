@@ -1,12 +1,15 @@
 # Caren's Auction
 
-Prototipe sistem informasi pelelangan berbasis web menggunakan PHP dan MySQL.
+Caren's Auction merupakan prototipe sistem informasi pelelangan berbasis web yang mempertemukan pengguna dan administrator dalam proses pengajuan, verifikasi, dan penawaran barang lelang. Proyek ini dikembangkan menggunakan PHP dan MySQL sebagai sarana pembelajaran pengembangan aplikasi web berbasis database.
 
 ## Fitur
 - Login administrator dan pengguna.
 - Pengajuan barang dan verifikasi oleh administrator.
 - Penawaran harga dan pengakhiran lelang.
 - Pengelolaan status pembayaran.
+- Katalog dan pencarian barang lelang.
+- Pengelolaan data barang dan pengguna oleh administrator.
+- Pengajuan harga awal, harga buyout, dan foto barang.
 
 ## Teknologi
 PHP, MySQL/MariaDB, HTML, CSS, dan PDO.
@@ -26,6 +29,42 @@ PHP, MySQL/MariaDB, HTML, CSS, dan PDO.
 - `gambar/`: lokasi unggahan barang (data lama tidak disertakan).
 - `style/`: CSS.
 - `dbauction.sql`: struktur database.
+
+## Dokumentasi tampilan website
+
+Tangkapan layar berasal dari versi lokal aplikasi. Sebagian data dan jalur berkas disamarkan untuk menjaga privasi.
+
+### Pemilihan peran pengguna dan administrator
+
+![Pemilihan peran pengguna dan administrator](screenshots/pilih-peran.png)
+
+### Halaman login pengguna
+
+![Halaman login pengguna](screenshots/login.png)
+
+### Katalog barang lelang
+
+![Katalog barang lelang](screenshots/daftar-lelang.png)
+
+### Pengelolaan data barang
+
+![Pengelolaan data barang](screenshots/data-barang.png)
+
+### Verifikasi pengajuan barang
+
+![Verifikasi pengajuan barang](screenshots/verifikasi.png)
+
+### Dashboard administrator
+
+![Dashboard administrator](screenshots/dashboard-admin.png)
+
+### Pengelolaan data pengguna (disamarkan)
+
+![Pengelolaan data pengguna (disamarkan)](screenshots/data-user.png)
+
+### Formulir pengajuan barang
+
+![Formulir pengajuan barang](screenshots/pengajuan.png)
 
 ## Batasan
 Proyek pembelajaran ini belum siap untuk penggunaan produksi. Kode asli masih menangani kata sandi tanpa hashing dan memerlukan audit autentikasi, otorisasi, serta unggahan file sebelum hosting publik. GitHub Pages tidak menjalankan PHP atau MySQL. Pengujian menyeluruh belum dilakukan.
