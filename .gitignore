@@ -1,0 +1,3 @@
+/gambar/*
+!/gambar/.gitkeep
+.env
