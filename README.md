@@ -1,70 +1,124 @@
 # Caren's Auction
 
-Caren's Auction merupakan prototipe sistem informasi pelelangan berbasis web yang mempertemukan pengguna dan administrator dalam proses pengajuan, verifikasi, dan penawaran barang lelang. Proyek ini dikembangkan menggunakan PHP dan MySQL sebagai sarana pembelajaran pengembangan aplikasi web berbasis database.
+### Sistem Informasi Pelelangan Berbasis Web
 
-## Fitur
-- Login administrator dan pengguna.
-- Pengajuan barang dan verifikasi oleh administrator.
-- Penawaran harga dan pengakhiran lelang.
-- Pengelolaan status pembayaran.
-- Katalog dan pencarian barang lelang.
-- Pengelolaan data barang dan pengguna oleh administrator.
-- Pengajuan harga awal, harga buyout, dan foto barang.
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 
-## Teknologi
-PHP, MySQL/MariaDB, HTML, CSS, dan PDO.
+## Demo Website
 
-## Cara menjalankan secara lokal
-1. Aktifkan Apache dan MySQL pada XAMPP.
-2. Ekstrak folder `Carens-Auction` ke `htdocs`.
-3. Buat database `dbauction` melalui phpMyAdmin dan impor `dbauction.sql`.
-4. Sesuaikan koneksi lokal di `backend/kelas-auction.php`.
-5. Buat akun pengujian lokal sebelum login. Database hanya berisi struktur tabel, tanpa data pengguna.
-6. Buka `http://localhost/Carens-Auction/frontend/view-form-login.php`.
+**[Kunjungi Website Caren's Auction](https://carens-auction.gamer.gd/)**
 
-## Struktur proyek
-- `backend/`: logika aplikasi.
-- `frontend/`: halaman pengguna dan administrator.
-- `foto/`: aset tampilan.
-- `gambar/`: lokasi unggahan barang (data lama tidak disertakan).
-- `style/`: CSS.
-- `dbauction.sql`: struktur database.
+## Deskripsi Proyek
 
-## Dokumentasi tampilan website
+Caren's Auction merupakan sistem informasi pelelangan berbasis web yang dikembangkan untuk memfasilitasi proses pengajuan barang, verifikasi, penawaran harga, penentuan pemenang, dan simulasi pembayaran secara digital.
 
-Tangkapan layar berasal dari versi lokal aplikasi. Sebagian data dan jalur berkas disamarkan untuk menjaga privasi.
+Aplikasi ini memiliki dua peran utama, yaitu pengguna (User) dan administrator (Admin), dengan hak akses dan fungsi yang berbeda.
 
-### Pemilihan peran pengguna dan administrator
+Proyek ini dikembangkan sebagai portofolio Full Stack Web Development dengan mengintegrasikan antarmuka pengguna, logika aplikasi, dan pengelolaan basis data.
 
-![Pemilihan peran pengguna dan administrator](screenshots/pilih-peran.png)
+## Fitur Utama
 
-### Halaman login pengguna
+### Pengguna (User)
 
-![Halaman login pengguna](screenshots/login.png)
+- Registrasi dan login akun.
+- Pencarian dan katalog barang lelang.
+- Pengajuan barang beserta foto dan deskripsi.
+- Penentuan harga awal dan harga buyout.
+- Penawaran harga barang lelang.
+- Simulasi pembayaran barang yang dimenangkan.
+- Logout akun.
 
-### Katalog barang lelang
+### Administrator (Admin)
 
-![Katalog barang lelang](screenshots/daftar-lelang.png)
+- Login administrator.
+- Dashboard pengelolaan pelelangan.
+- Verifikasi dan persetujuan pengajuan barang.
+- Pemantauan harga penawaran tertinggi.
+- Pengakhiran lelang dan penentuan pemenang.
+- Pengelolaan data barang dan pengguna.
 
-### Pengelolaan data barang
+## Teknologi yang Digunakan
 
-![Pengelolaan data barang](screenshots/data-barang.png)
+| Teknologi | Kegunaan |
+|---|---|
+| HTML | Struktur halaman website |
+| CSS | Desain antarmuka pengguna |
+| PHP | Logika aplikasi dan pemrosesan data |
+| MySQL | Pengelolaan basis data |
+| PDO | Koneksi dan pemrosesan kueri database |
+| XAMPP | Lingkungan pengembangan lokal |
+| InfinityFree | Hosting website |
+| GitHub | Dokumentasi dan pengelolaan kode sumber |
 
-### Verifikasi pengajuan barang
+## Keamanan Aplikasi
 
-![Verifikasi pengajuan barang](screenshots/verifikasi.png)
+Peningkatan keamanan yang diterapkan meliputi:
 
-### Dashboard administrator
+- Penyimpanan password menggunakan password hashing.
+- Penggunaan PDO prepared statements.
+- Validasi sesi dan hak akses pengguna.
+- Perlindungan CSRF pada formulir.
+- Validasi data masukan pengguna.
+- Validasi format dan ukuran unggahan gambar.
+- Pemisahan konfigurasi koneksi database.
+- Pembatasan akses langsung terhadap file konfigurasi.
 
-![Dashboard administrator](screenshots/dashboard-admin.png)
+## Alur Sistem Pelelangan
 
-### Pengelolaan data pengguna (disamarkan)
+1. Pengguna melakukan registrasi dan login.
+2. Pengguna mengajukan barang untuk dilelang.
+3. Administrator melakukan verifikasi pengajuan.
+4. Barang yang disetujui ditampilkan pada katalog.
+5. Pengguna lain mengajukan penawaran harga.
+6. Administrator mengakhiri proses pelelangan.
+7. Pemenang melakukan pembayaran simulasi.
 
-![Pengelolaan data pengguna (disamarkan)](screenshots/data-user.png)
+## Dokumentasi Tampilan Website
 
-### Formulir pengajuan barang
+Dokumentasi antarmuka pengguna dan administrator tersedia pada folder berikut:
 
-![Formulir pengajuan barang](screenshots/pengajuan.png)
+**[Lihat Dokumentasi Website](./dokumentasi%20website/)**
 
-## Batasan
-Proyek pembelajaran ini belum siap untuk penggunaan produksi. Kode asli masih menangani kata sandi tanpa hashing dan memerlukan audit autentikasi, otorisasi, serta unggahan file sebelum hosting publik. GitHub Pages tidak menjalankan PHP atau MySQL. Pengujian menyeluruh belum dilakukan.
+## Struktur Proyek
+
+    Carens-Auction/
+    ├── backend/
+    ├── frontend/
+    ├── foto/
+    ├── gambar/
+    ├── style/
+    ├── dokumentasi website/
+    ├── dbauction.sql
+    ├── .gitignore
+    └── README.md
+
+## Cara Menjalankan Secara Lokal
+
+1. Unduh atau clone repositori ini.
+2. Simpan folder proyek ke direktori htdocs pada XAMPP.
+3. Aktifkan Apache dan MySQL.
+4. Buat database baru melalui phpMyAdmin.
+5. Impor file dbauction.sql.
+6. Buat file backend/config.local.php dan sesuaikan konfigurasi host, nama database, username, serta password MySQL lokal.
+7. Registrasikan akun pengguna untuk pengujian.
+8. Buat akun administrator dengan password yang telah di-hash menggunakan PHP.
+9. Buka alamat berikut melalui browser:
+
+   http://localhost/Carens-Auction/frontend/view-form-login.php
+
+## Catatan
+
+Website ini merupakan proyek pembelajaran dan demonstrasi portofolio. Seluruh transaksi pembayaran bersifat simulasi dan tidak menggunakan payment gateway atau transaksi keuangan sungguhan.
+
+Pengujian keamanan secara menyeluruh masih diperlukan sebelum aplikasi digunakan sebagai layanan komersial.
+
+## Pengembang
+
+**GitHub:** [deboraachriss](https://github.com/deboraachriss)
+
+---
+
+Caren's Auction | Full Stack Web Development Portfolio
