@@ -78,9 +78,45 @@ Peningkatan keamanan yang diterapkan meliputi:
 
 ## Dokumentasi Tampilan Website
 
-Dokumentasi antarmuka pengguna dan administrator tersedia pada folder berikut:
+### 1. Halaman Pemilihan Peran
+Halaman awal untuk memilih akses sebagai pengguna atau administrator.
 
-**[Lihat Dokumentasi Website](./dokumentasi%20website/)**
+![Pemilihan Peran](./dokumentasi%20website/pilih-peran.png)
+
+### 2. Halaman Login Pengguna
+Halaman autentikasi pengguna untuk mengakses sistem pelelangan.
+
+![Login Pengguna](./dokumentasi%20website/login.png)
+
+### 3. Katalog Barang Lelang
+Menampilkan daftar barang yang tersedia beserta informasi harga dan status pelelangan.
+
+![Katalog Barang Lelang](./dokumentasi%20website/daftar-lelang.png)
+
+### 4. Pengajuan Barang Lelang
+Formulir pengajuan barang yang mencakup nama, deskripsi, harga awal, harga buyout, dan foto barang.
+
+![Pengajuan Barang](./dokumentasi%20website/pengajuan.png)
+
+### 5. Dashboard Administrator
+Halaman pengelolaan aktivitas pelelangan, penawaran tertinggi, dan penentuan pemenang.
+
+![Dashboard Admin](./dokumentasi%20website/dashboard-admin.png)
+
+### 6. Verifikasi Pengajuan Barang
+Halaman administrator untuk menerima atau menolak pengajuan barang lelang.
+
+![Verifikasi Pengajuan](./dokumentasi%20website/verifikasi.png)
+
+### 7. Pengelolaan Data Barang
+Halaman administrator untuk memantau informasi dan status barang lelang.
+
+![Data Barang](./dokumentasi%20website/data-barang.png)
+
+### 8. Pengelolaan Data Pengguna
+Halaman administrator untuk mengelola data pengguna yang terdaftar dalam sistem.
+
+![Data Pengguna](./dokumentasi%20website/data-user.png)
 
 ## Struktur Proyek
 
