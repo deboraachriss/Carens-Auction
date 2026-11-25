@@ -1,59 +1,13 @@
 <?php
-include "kelas-auction.php";
-$act = new Auction();
-
-$namaBarang = filter_input(INPUT_POST, 'txtNamaBarang', FILTER_SANITIZE_STRING);
-$deskripsiBarang = filter_input(INPUT_POST, 'txtDeskripsiBarang', FILTER_SANITIZE_STRING);
-$hargaAwal = filter_input(INPUT_POST, 'nmbHargaAwal', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$hargaBuyout = filter_input(INPUT_POST, 'nmbHargaBuyout', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$status = 'Pending';
-
-if (isset($_FILES["imgFotoBarang"]) && $_FILES["imgFotoBarang"]["error"] === UPLOAD_ERR_OK) {
-    $uploadDir = "../gambar/";
-
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    $fileExtension = strtolower(pathinfo($_FILES["imgFotoBarang"]["name"], PATHINFO_EXTENSION));
-    $fileName = uniqid() . '.' . $fileExtension;
-    $filePath = $uploadDir . $fileName;
-
-    $allowedFormats = ['jpg', 'jpeg', 'png', 'gif'];
-    $imageInfo = getimagesize($_FILES["imgFotoBarang"]["tmp_name"]);
-    
-    if ($imageInfo === false) {
-        echo "<script>alert('File bukan gambar!');</script>";
-        exit();
-    }
-
-    if ($_FILES["imgFotoBarang"]["size"] > 10000000) {
-        echo "<script>alert('Ukuran file terlalu besar. Maksimal 10MB.');</script>";
-        exit();
-    }
-
-    if (!in_array($fileExtension, $allowedFormats)) {
-        echo "<script>alert('Format file tidak diizinkan. Gunakan JPG, JPEG, PNG ATAU GIF.');</script>";
-        exit();
-    }
-
-    if (move_uploaded_file($_FILES["imgFotoBarang"]["tmp_name"], $filePath)) {
-        $relativePath = '../gambar/' . $fileName;
-        
-        if ($act->ajukanBarang($namaBarang, $deskripsiBarang, $hargaAwal, $hargaBuyout, $relativePath, $status)) {
-            echo "<script>
-                alert('Pengajuan berhasil!');
-                window.location.href='../frontend/view-page-barang-user.php';
-            </script>";
-            exit();
-        } else {
-            unlink($filePath);
-            echo "<script>alert('Gagal ajukan barang!');</script>";
-        }
-    } else {
-        echo "<script>alert('Gagal mengunggah file!');</script>";
-    }
-} else {
-    echo "<script>alert('File tidak valid!');</script>";
-}
-?>
+require_once __DIR__."/kelas-auction.php";
+post();
+role('user'); $name=trim(val('txtNamaBarang')); $desc=trim(val('txtDeskripsiBarang')); $start=money('nmbHargaAwal'); $buy=money('nmbHargaBuyout');
+if (!$name || strlen($name)>50 || !$desc || strlen($desc)>256 || $buy<=$start) fail('Data barang atau harga tidak valid.');
+$file=$_FILES['imgFotoBarang']??[];
+if (($file['error']??null)!==UPLOAD_ERR_OK || !is_string($file['tmp_name']??null) || !is_uploaded_file($file['tmp_name']) || filesize($file['tmp_name'])>5000000) fail('Unggahan tidak valid (maksimum 5 MB).');
+$info=@getimagesize($file['tmp_name']); $mime=(new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']); $types=['image/jpeg'=>'jpg','image/png'=>'png','image/gif'=>'gif'];
+if (!$info || !isset($types[$mime]) || $info['mime']!==$mime || $info[0]>5000 || $info[1]>5000) fail('Gambar tidak valid.');
+$namefile=bin2hex(random_bytes(16)).'.'.$types[$mime]; $target=__DIR__.'/../gambar/'.$namefile;
+if (!move_uploaded_file($file['tmp_name'],$target)) fail('Gagal menyimpan gambar.');
+try { $a=new Auction(); if (!$a->ajukanBarang($name,$desc,$start,$buy,'../gambar/'.$namefile,'pending',(int)$_SESSION['uid'])) throw new RuntimeException('Insert failed'); } catch(Throwable $e) { unlink($target); throw $e; }
+go('../frontend/view-page-barang-user.php');

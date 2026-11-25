@@ -1,34 +1,9 @@
 <?php
-include "kelas-auction.php";
-
-$act = new Auction();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['username']) && !empty($_POST['password'])) {
-
-    $a = trim($_POST['username']);
-    $b = trim($_POST['password']);
-
-    $status = $act->cekLoginAdmin($a, $b);
-
-    if ($status) {
-     
-        session_start(); 
-        $_SESSION['admin_logged_in'] = true; 
-        $_SESSION['username'] = $a; 
-
-        header("Location: ../frontend/view-page-admin.php"); 
-        exit();
-    } else {
-        echo "<script>
-            alert('Username/Password salah!');
-            window.location.href = '../frontend/view-login-admin.php'; 
-            </script>";
-    }
-} else {
-    echo "<script>
-        alert('Gagal Login!');
-        window.location.href = '../frontend/view-login-admin.php'; 
-        </script>";
-    exit();
-}
-?>
+require_once __DIR__."/kelas-auction.php";
+post();
+$name=trim(val('username')); $pw=val('password');
+if (strlen($name)>200 || strlen($pw)>72) fail('Login tidak valid.');
+if (($_SESSION['blocked_until']??0)>time()) fail('Terlalu banyak percobaan login.',429);
+$a=new Auction(); $row=$a->cekLoginAdmin($name,$pw);
+if (!$row) { $_SESSION['attempts']=($_SESSION['attempts']??0)+1; if ($_SESSION['attempts']>=5) { $_SESSION['blocked_until']=time()+60; $_SESSION['attempts']=0; } fail('Username atau password salah.',401); }
+login_session('admin',(int)$row['id']); go('../frontend/view-page-admin.php');

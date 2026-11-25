@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php"; role('user'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,18 +23,18 @@
             </thead>
             <tbody>
                 <?php
-                include "../backend/kelas-auction.php";
+                
                 $act = new Auction();
-                $barangList = $act->getAllItems();
+                $barangList = $act->tampilkanBarangFull();
 
                 foreach ($barangList as $barang) {
                     echo "<tr>
-                            <td>{$barang['nama_barang']}</td>
-                            <td>{$barang['deskripsi']}</td>
-                            <td>{$barang['harga_awal']}</td>
-                            <td>{$barang['harga_buyout']}</td>
-                            <td>{$barang['status']}</td>
-                            <td><img src='../gambar/{$barang['foto']}' alt='Foto Barang' style='width: 100px;'></td>
+                            <td>".h($barang['nama_barang'])."</td>
+                            <td>".h($barang['deskripsi_barang'])."</td>
+                            <td>".h($barang['harga_awal'])."</td>
+                            <td>".h($barang['harga_buyout'])."</td>
+                            <td>".h($barang['status_lelang'])."</td>
+                            <td><img src='".h(photo($barang['foto_barang']))."' alt='Foto Barang' style='width: 100px;'></td>
                           </tr>";
                 }
                 ?>

@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php"; role('admin'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,16 +15,8 @@
 
 
 
-<?php 
-
-session_start(); 
-
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-
-    header("Location: view-login-admin.php");
-    exit();
-}
-include "../backend/kelas-auction.php"; 
+<?php
+ 
 
 
 
@@ -41,15 +34,7 @@ echo "<img src='../foto/logoo.png' alt='CARENs Auction' class='logo'>";
 echo "<div class='sidebar-header'>";
 echo "<h2>WELCOME ADMIN</h2>";
 
-if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
-   
-    session_unset();
-
-    header("Location: ../frontend/view-login-admin.php");
-    exit();
-}
-
-echo "<a href='?logout=true' class='logout-btn'><img src='../foto/logout.png' alt='Logout' class='logout-logo'></a>"; 
+echo logout_form(); 
 echo "</div>";
 
 
@@ -81,11 +66,11 @@ echo "<tr>";
 
 foreach($dtb as $d){
     echo "<tr>";
-        echo "<td>".$d['id']."</td>";
-        echo "<td>".$d['nama_barang']."</td>";
-        echo "<td>".$d['deskripsi_barang']."</td>";
-        echo "<td>".$d['harga_awal']."</td>";
-        echo "<td>".$d['status_lelang']."</td>";
+        echo "<td>".h($d["id"])."</td>";
+        echo "<td>".h($d["nama_barang"])."</td>";
+        echo "<td>".h($d["deskripsi_barang"])."</td>";
+        echo "<td>".h($d["harga_awal"])."</td>";
+        echo "<td>".h($d["status_lelang"])."</td>";
     echo "</tr>";  
 }
 echo "</table>";

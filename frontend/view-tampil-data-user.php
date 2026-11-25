@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php"; role('admin'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +10,8 @@
 <body>
     <div class="container">
 
-<?php 
-
-session_start(); 
-
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-
-    header("Location: view-login-admin.php");
-    exit();
-}
-include "../backend/kelas-auction.php"; 
+<?php
+ 
 
 
 $act = new Auction();
@@ -31,15 +24,7 @@ echo "<img src='../foto/logoo.png' alt='CARENs Auction' class='logo'>";
 echo "<div class='sidebar-header'>";
 echo "<h2>WELCOME ADMIN</h2>";
 
-if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
-   
-    session_unset();
-
-    header("Location: ../frontend/view-login-admin.php");
-    exit();
-}
-
-echo "<a href='?logout=true' class='logout-btn'><img src='../foto/logout.png' alt='Logout' class='logout-logo'></a>"; 
+echo logout_form(); 
 
 echo "</div>";
 
@@ -67,11 +52,11 @@ echo "</tr>";
 
 foreach($dtu as $d){
     echo "<tr>";
-        echo "<td>".$d["id"]."</td>";
-        echo "<td>".$d["nama"]."</td>";
-        echo "<td>".$d["no_rekening"]."</td>";
+        echo "<td>".h($d["id"])."</td>";
+        echo "<td>".h($d["nama"])."</td>";
+        echo "<td>".h(str_repeat("*", max(0, strlen($d["no_rekening"])-2)).substr($d["no_rekening"],-2))."</td>";
         echo "<td>";
-            echo "<a href = '../backend/proses-hapus-data-user.php?id=".$d["id"]."' class='delete-btn' >Hapus</a>";
+            echo action_form("proses-hapus-data-user.php", $d["id"], "delete-btn", "Hapus");
           
         echo "</td>";
     echo "</tr>";  

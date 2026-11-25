@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php";  ?>
 
 
 <html>
@@ -12,11 +13,11 @@
         </div>
         <div class="login-right">
         <?php
-            include "../backend/kelas-auction.php";
+            
         
             
             
-            echo "<form action='../backend/proses-login-admin.php' method='POST'>";
+            echo "<form action='../backend/proses-login-admin.php' method='POST'>"; echo field();
             echo "<h1>Login as Admin</h1>";
             echo "<p>Please enter your login details</p>";
 

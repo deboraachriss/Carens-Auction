@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php";  ?>
 
 
 
@@ -13,11 +14,11 @@
         </div>
         <div class="login-right">
         <?php
-            include "../backend/kelas-auction.php";
+            
         
             
             
-            echo "<form action='../backend/proses-tambah-data-user.php' method='POST'>";
+            echo "<form action='../backend/proses-tambah-data-user.php' method='POST'>"; echo field();
             echo "<h1>Register</h1>";
             echo "<p>Please enter your identity</p>";
 

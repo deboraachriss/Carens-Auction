@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbadmin` (
   `id` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `password` varchar(15) NOT NULL
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `tbpembayaran` (
 CREATE TABLE `tbuser` (
   `id` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `password` varchar(15) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `no_rekening` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -118,7 +118,7 @@ CREATE TABLE `tb_bid` (
 -- Indeks untuk tabel `tbadmin`
 --
 ALTER TABLE `tbadmin`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY (`nama`);
 
 --
 -- Indeks untuk tabel `tbbarang`
@@ -138,7 +138,7 @@ ALTER TABLE `tbpembayaran`
 -- Indeks untuk tabel `tbuser`
 --
 ALTER TABLE `tbuser`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY (`nama`);
 
 --
 -- Indeks untuk tabel `tb_bid`
@@ -195,7 +195,7 @@ ALTER TABLE `tbpembayaran`
 -- Ketidakleluasaan untuk tabel `tb_bid`
 --
 ALTER TABLE `tb_bid`
-  ADD CONSTRAINT `tb_bid_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `tbbarang` (`id`);
+  ADD CONSTRAINT `tb_bid_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `tbbarang` (`id`), ADD CONSTRAINT `fk_bid_user` FOREIGN KEY (`user_id`) REFERENCES `tbuser` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

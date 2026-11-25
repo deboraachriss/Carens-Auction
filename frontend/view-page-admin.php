@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php"; role('admin'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +12,7 @@
     <div class="container">
 
         <?php
-        session_start(); 
-
-        if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-
-            header("Location: view-login-admin.php");
-            exit();
-        }
-        include "../backend/kelas-auction.php"; 
+         
 
         
 
@@ -29,7 +23,7 @@
         echo "<h2>WELCOME ADMIN</h2>";
 
         
-        echo "<a href='../frontend/view-form-login.php' class='logout-btn'><img src='../foto/logout.png' alt='Logout' class='logout-logo'></a>"; 
+        echo logout_form(); 
         echo "</div>";
 
 
@@ -69,17 +63,17 @@
 
                         
                         $highestBidAmount = $highestBid ? number_format($highestBid['bid_amount'], 0, ',', '.') : 'Belum ada bid';
-                        $bidderName = $highestBid ? htmlspecialchars($highestBid['nama_pengguna']) : 'Belum ada pemenang';
+                        $bidderName = $highestBid ? h($highestBid['nama_pengguna']) : 'Belum ada pemenang';
 
                         echo "<tr>
-                                <td>" . htmlspecialchars($barang['nama_barang']) . "</td>
-                                <td>" . htmlspecialchars($barang['deskripsi_barang']) . "</td>
+                                <td>" . h($barang['nama_barang']) . "</td>
+                                <td>" . h($barang['deskripsi_barang']) . "</td>
                                 <td>Rp " . number_format($barang['harga_awal'], 0, ',', '.') . "</td>
                                 <td>Rp " . $highestBidAmount . "</td>
                                 <td>" . $bidderName . "</td>
                                 <td>
-                                    <form method='POST' action='../backend/proses-akhiri-lelang.php'>
-                                        <input type='hidden' name='id_barang' value='" . htmlspecialchars($barang['id']) . "'>
+                                    <form method='POST' action='../backend/proses-akhiri-lelang.php'>" . field() . "
+                                        <input type='hidden' name='id_barang' value='" . h($barang['id']) . "'>
                                         <button type='submit' class='accept-btn'>Akhiri Lelang</button>
                                     </form>
                                 </td>

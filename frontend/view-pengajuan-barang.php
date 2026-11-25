@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php"; role('user'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +21,7 @@
                 <li><a href="view-page-barang-user.php" class='logout-btn'><img src='../foto/home-icon.png' alt='Home' class='logout-logo'></a></li>
                 <li><a href="" class='logout-btn'><img src='../foto/cart.png' alt='Shoping Cart' class='logout-logo'></a></li>
                 <li><a href="" class='logout-btn'><img src='../foto/icon-user.png' alt='User' class='logout-logo'></a></li>
-                <li><a href="view-form-login.php" class='logout-btn'><img src='../foto/logout.png' alt='Logout' class='logout-logo'></a></li>
+                <li><?php echo logout_form(); ?></li>
             </ul>
         </div>
     </nav>
@@ -30,7 +31,7 @@
 
     <div class="container-pengajuan">
         <h1 >Pengajuan Barang Lelang</h1>
-        <form method="post" action="../backend/proses-pengajuan-barang.php" enctype="multipart/form-data">
+        <form method="post" action="../backend/proses-pengajuan-barang.php" enctype="multipart/form-data"><?php echo field(); ?>
             <div class="form-group">
                 <label for="txtNamaBarang">Nama Barang:</label>
                 <input type="text" class="form-control" name="txtNamaBarang" id="txtNamaBarang" required>

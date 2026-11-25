@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php"; role('admin'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +11,7 @@
     <div class="container">
 
     <?php
-
-session_start(); 
-
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-
-    header("Location: view-login-admin.php");
-    exit();
-}
-include "../backend/kelas-auction.php"; 
+ 
        
 
         $act = new Auction();
@@ -31,15 +24,8 @@ include "../backend/kelas-auction.php";
 
         echo "<div class='sidebar-header'>";
         echo "<h2>WELCOME ADMIN</h2>";
-        if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
-   
-            session_unset();
         
-            header("Location: ../frontend/view-login-admin.php");
-            exit();
-        }
-        
-        echo "<a href='?logout=true' class='logout-btn'><img src='../foto/logout.png' alt='Logout' class='logout-logo'></a>";
+        echo logout_form();
         echo "</div>";
 
 
@@ -68,15 +54,15 @@ include "../backend/kelas-auction.php";
 
         foreach($dvb as $d){
             echo "<tr>";
-                echo "<td>".$d["nama_barang"]."</td>";
-                echo "<td>".$d["deskripsi_barang"]."</td>";
-                echo "<td>".$d["harga_awal"]."</td>";
-                echo "<td>".$d["harga_buyout"]."</td>";
-                echo "<td>".$d["foto_barang"]."</td>";
+                echo "<td>".h($d["nama_barang"])."</td>";
+                echo "<td>".h($d["deskripsi_barang"])."</td>";
+                echo "<td>".h($d["harga_awal"])."</td>";
+                echo "<td>".h($d["harga_buyout"])."</td>";
+                echo "<td>".h($d["foto_barang"])."</td>";
                 echo "<td>";
                 echo "<div class='button-container'>";
-                echo "<a href='../backend/proses-pengajuan-diterima.php?id=".$d["id"]."' class='accept-btn'>Terima</a>";
-                echo "<a href='../backend/proses-tolak-pengajuan.php?id=".$d["id"]."' class='reject-btn'>Tolak</a>";
+                echo action_form("proses-pengajuan-diterima.php", $d["id"], "accept-btn", "Terima");
+                echo action_form("proses-tolak-pengajuan.php", $d["id"], "reject-btn", "Tolak");
                 echo "</div>";
                 echo "</td>";
             echo "</tr>";  

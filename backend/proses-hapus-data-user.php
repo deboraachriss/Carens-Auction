@@ -1,26 +1,4 @@
-<?php 
-
-include "kelas-auction.php";
-
-$act = new Auction();
-
-$id = $_GET["id"];
- 
-$status = $act->hapusDataUser($id);
-
-if($status==true) {
-
-    echo "<script>
-            var konfirmasi = confirm('Apakah Anda yakin ingin menghaps data user?');
-            if (konfirmasi) {
-                alert('Berhasil melakukan user!');
-                window.location.href = '../frontend/view-tampil-data-user.php';
-            } else {    
-                window.history.back();
-            }
-        </script>";
-    
-    
-}
-else echo "<script>alert('Gagal menghapus data!');</script>";
-?>
+<?php
+require_once __DIR__."/kelas-auction.php";
+post();
+role('admin'); $a=new Auction(); try { $ok=$a->hapusDataUser(ident('id')); } catch(PDOException $e) { if ($e->getCode()==='23000') fail('Data masih terhubung dengan transaksi.'); throw $e; } if (!$ok) fail('Operasi gagal.'); go('../frontend/view-tampil-data-user.php');

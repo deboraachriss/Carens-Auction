@@ -1,3 +1,4 @@
+<?php require_once __DIR__."/../backend/kelas-auction.php"; role('user'); ?>
 <html>
 
 <head>
@@ -39,15 +40,14 @@
                 <li><a href="view-page-barang-user.php" class='logout-btn'><img src='../foto/home-icon.png' alt='Home' class='logout-logo'></a></li>
                 <li><a href="" class='logout-btn'><img src='../foto/cart.png' alt='Shoping Cart' class='logout-logo'></a></li>
                 <li><a href="view-login-user.php" class='logout-btn'><img src='../foto/icon-user.png' alt='User' class='logout-logo'></a></li>
-                <li><a href="view-form-login.php" class='logout-btn'><img src='../foto/logout.png' alt='Logout' class='logout-logo'></a></li>
+                <li><?php echo logout_form(); ?></li>
             </ul>
         </div>
     </nav>
 
     <div class="grid-container">
         <?php
-        include '../backend/kelas-auction.php';
-        session_start(); 
+         
 
         $act = new Auction();
         $db = $act->tampilkanBarangSold();
@@ -61,14 +61,14 @@
                 echo '<div class="grid-item">';
                 echo '<a href="view-page-detail-barang.php?id=' . $barang['id'] . '">';
                 $gambar = base64_encode($barang['foto_barang']);
-                echo '<img src=' . htmlspecialchars($barang['foto_barang']) . ' alt="Gambar ' . htmlspecialchars($barang['nama_barang']) . '">';
+                echo '<img src="' . h(photo($barang['foto_barang'])) . '" alt="Gambar ' . h($barang['nama_barang']) . '">';
                 echo '</a>';
-                echo '<div class="item-name">' . htmlspecialchars($barang['nama_barang']) . '</div>';
-                echo '<div class="item-description">' . htmlspecialchars($barang['deskripsi_barang']) . '</div>';
+                echo '<div class="item-name">' . h($barang['nama_barang']) . '</div>';
+                echo '<div class="item-description">' . h($barang['deskripsi_barang']) . '</div>';
                 $finalPrice = ($highestBid) ? $highestBid['bid_amount'] : $barang['harga_awal'];
                 echo '<div class="item-price">Rp ' . number_format($finalPrice, 0, ',', '.') . '</div>';
 
-                echo '<form method="post" action="../backend/proses-bayar.php">';
+                echo '<form method="post" action="../backend/proses-bayar.php">'; echo field();
                 echo '<input type="hidden" name="id_barang" value="' . $barang['id'] . '">';
                 echo '<button type="submit" class="btn-bayar-btn">Bayar</button>';
                 echo '</form>';
